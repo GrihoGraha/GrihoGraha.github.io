@@ -1,43 +1,50 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // AOS Initialization
+    
+    /**
+     * 1. AOS (Animate on Scroll) Initialization
+     * Initializes the library for scroll animations.
+     */
     AOS.init({
-        duration: 800,
-        once: true,
+        duration: 800, // Animation duration in milliseconds
+        once: true,    // Whether animation should happen only once
     });
 
-    // Mobile Menu Toggle
+
+    /**
+     * 2. Mobile Menu Toggle
+     * Handles the opening and closing of the mobile navigation menu.
+     */
     const hamburger = document.getElementById('hamburger-menu');
     const navLinksContainer = document.getElementById('nav-links-mobile');
 
     if (hamburger && navLinksContainer) {
+        // Toggle menu on hamburger click
         hamburger.addEventListener('click', () => {
             navLinksContainer.classList.toggle('active');
             const icon = hamburger.querySelector('i');
-            if (navLinksContainer.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-                hamburger.setAttribute('aria-expanded', 'true');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-                hamburger.setAttribute('aria-expanded', 'false');
-            }
+            const isOpened = navLinksContainer.classList.contains('active');
+            
+            icon.classList.toggle('fa-bars', !isOpened);
+            icon.classList.toggle('fa-times', isOpened);
+            hamburger.setAttribute('aria-expanded', isOpened);
         });
 
-        // Close mobile menu when a link is clicked
+        // Close menu when a link is clicked
         navLinksContainer.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                if (navLinksContainer.classList.contains('active')) {
-                    navLinksContainer.classList.remove('active');
-                    hamburger.querySelector('i').classList.remove('fa-times');
-                    hamburger.querySelector('i').classList.add('fa-bars');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                }
+                navLinksContainer.classList.remove('active');
+                hamburger.querySelector('i').classList.remove('fa-times');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.setAttribute('aria-expanded', 'false');
             });
         });
     }
 
-    // Sticky Header on Scroll
+
+    /**
+     * 3. Sticky Header
+     * Adds a 'scrolled' class to the header when the user scrolls down.
+     */
     const header = document.querySelector('header');
     if (header) {
         window.addEventListener('scroll', () => {
@@ -48,24 +55,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
     
-    // Current Year for Footer
+    /**
+     * 4. Dynamic Footer Year
+     * Updates the year in the footer to the current year.
+     */
     const currentYearElement = document.getElementById('currentYear');
     if (currentYearElement) {
         currentYearElement.textContent = new Date().getFullYear();
     }
 
-    // Active Navigation Link Highlighting
-    const sections = document.querySelectorAll('section[id]');
+
+    /**
+     * 5. Active Navigation Link Highlighting on Scroll
+     * Updates the 'active' class on navigation links based on scroll position.
+     */
+    const sections = document.querySelectorAll('main section[id]');
     const allNavAnchors = document.querySelectorAll('header nav a');
 
-    function updateActiveLink() {
-        let currentSectionId = 'home';
+    const updateActiveLink = () => {
+        let currentSectionId = '';
         const headerHeight = header ? header.offsetHeight : 70;
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (window.scrollY >= (sectionTop - headerHeight - 100)) {
+            // Check if the top of the section is within the viewport (with an offset)
+            if (window.scrollY >= (sectionTop - headerHeight - 150)) {
                 currentSectionId = section.getAttribute('id');
             }
         });
@@ -73,24 +89,28 @@ document.addEventListener('DOMContentLoaded', function() {
         allNavAnchors.forEach(a => {
             a.classList.remove('active');
             a.removeAttribute('aria-current');
-            if (a.getAttribute('href').substring(1) === currentSectionId) {
+            // Check if the link's href matches the current section
+            if (a.getAttribute('href') === `#${currentSectionId}`) {
                 a.classList.add('active');
                 a.setAttribute('aria-current', 'page');
             }
         });
-    }
+    };
     window.addEventListener('scroll', updateActiveLink);
-    updateActiveLink(); // Initial call
+    updateActiveLink(); // Initial call on page load
 
-    // Dynamic Number Counter
+
+    /**
+     * 6. Dynamic Number Counter for Stats Section
+     * Animates numbers counting up when the stats section is visible.
+     */
     const statsCounters = document.querySelectorAll('.stat-number');
-    const speed = 200;
-
     const animateCounter = (counter) => {
         const target = +counter.getAttribute('data-target');
         const suffix = counter.getAttribute('data-suffix') || '';
-        let count = 0;
+        const speed = 200; // Lower number = faster animation
         
+        let count = 0;
         const updateCount = () => {
             const increment = target / speed;
             count += increment;
@@ -109,18 +129,21 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 animateCounter(entry.target);
-                observer.unobserve(entry.target);
+                observer.unobserve(entry.target); // Stop observing after animation
             }
         });
     }, { root: null, threshold: 0.1 });
 
-    statsCounters.forEach(counter => {
-        statObserver.observe(counter);
-    });
+    statsCounters.forEach(counter => statObserver.observe(counter));
 
-    // GLightbox Initialization
+
+    /**
+     * 7. GLightbox Initialization
+     * Initializes the lightbox for the portfolio gallery.
+     */
+    let lightbox;
     if (typeof GLightbox !== 'undefined') {
-        GLightbox({
+        lightbox = GLightbox({
             selector: '.glightbox',
             touchNavigation: true,
             loop: true,
@@ -130,41 +153,98 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('GLightbox not found. Lightbox functionality will be disabled.');
     }
 
-    // Go-to-Top Button
+
+    /**
+     * 8. Portfolio Filtering Logic
+     * Filters portfolio items based on category buttons.
+     */
+    const filterContainer = document.querySelector('.portfolio-filters');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    if (filterContainer && portfolioItems.length > 0) {
+        filterContainer.addEventListener('click', (e) => {
+            // Use event delegation to only act on button clicks
+            if (e.target.matches('.filter-btn')) {
+                // Update active button state
+                filterContainer.querySelector('.active').classList.remove('active');
+                e.target.classList.add('active');
+                
+                const filterValue = e.target.getAttribute('data-filter');
+                
+                // Show or hide items based on the filter
+                portfolioItems.forEach(item => {
+                    const itemCategories = item.getAttribute('data-category');
+                    const shouldShow = (filterValue === 'all' || itemCategories.includes(filterValue));
+                    item.classList.toggle('hide', !shouldShow);
+                });
+
+                // Refresh the lightbox to include only visible items
+                if (lightbox) {
+                    lightbox.reload();
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 9. Go-to-Top Button
+     * Shows a button to scroll back to the top of the page.
+     */
     const goToTopButton = document.getElementById('goToTopBtn');
     if (goToTopButton) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                goToTopButton.classList.add('show');
-            } else {
-                goToTopButton.classList.remove('show');
-            }
+            goToTopButton.classList.toggle('show', window.scrollY > 300);
         });
+        
         goToTopButton.addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
-    // Contact Form to WhatsApp
+
+    /**
+     * 10. WhatsApp Integration
+     * A unified handler for sending pre-filled WhatsApp messages.
+     */
+    const sendWhatsAppMessage = (message) => {
+        const whatsAppNumber = "917865080416";
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappURL = `https://wa.me/${whatsAppNumber}?text=${encodedMessage}`;
+        window.open(whatsappURL, '_blank');
+    };
+
+    // Handler for the main Contact Form
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        contactForm.addEventListener('submit', function(event) {
+        contactForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const name = document.getElementById('formName').value;
             const subject = document.getElementById('formSubject').value;
             const message = document.getElementById('formMessage').value;
-            const whatsAppNumber = "917003941632";
-
+            
             let prefilledMessage = `Hello Grihograha,\n\n`;
             if (name) prefilledMessage += `My name is: ${name}\n`;
             if (subject) prefilledMessage += `Subject: ${subject}\n`;
             prefilledMessage += `\nMessage:\n${message}`;
 
-            const encodedMessage = encodeURIComponent(prefilledMessage);
-            const whatsappURL = `https://wa.me/${whatsAppNumber}?text=${encodedMessage}`;
-            
-            window.open(whatsappURL, '_blank');
+            sendWhatsAppMessage(prefilledMessage);
         });
     }
+
+    // Handler for the Pricing Section CTA buttons
+    const pricingSection = document.getElementById('pricing');
+    if (pricingSection) {
+        pricingSection.addEventListener('click', (event) => {
+            // Use event delegation to catch clicks on pricing buttons
+            if (event.target.matches('.pricing-cta-btn')) {
+                event.preventDefault();
+                const service = event.target.dataset.service;
+                const prefilledMessage = `Hello Grihograha, I'm interested in your ${service} service. Could you please provide more details?`;
+                sendWhatsAppMessage(prefilledMessage);
+            }
+        });
+    }
+
 });
