@@ -314,7 +314,7 @@
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">Our Pricing</h2>
                 <p class="section-intro" data-aos="fade-up" data-aos-delay="100">
-                    Transparent pricing for our design services. All prices are indicative and may vary based on project complexity.
+                    Transparent pricing for our design services. For a quick calculation, use our estimator below.
                 </p>
 
                 <div class="pricing-grid">
@@ -332,9 +332,7 @@
                                 <li><strong>Extra Floor:</strong> +₹2,000 (Res), +₹3,000 (Com)</li>
                             </ul>
                             <button class="btn pricing-cta-btn" data-service="3D Exterior Design">Inquire Now</button>
-
                             <hr>
-
                             <h4>Interior Design</h4>
                             <ul>
                                 <li><strong>Residential:</strong> ₹23 per sqft</li>
@@ -362,8 +360,66 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="pricing-terms" data-aos="fade-up" data-aos-delay="400">
+        <!-- START: NEW ESTIMATOR SECTION -->
+        <section id="estimator" class="section-padding">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Get an Instant Estimate</h2>
+                <p class="section-intro" data-aos="fade-up" data-aos-delay="100">
+                    Select your project details to get a preliminary cost estimation. This is a guide price and may vary based on complexity.
+                </p>
+                <div class="estimator-container" data-aos="fade-up" data-aos-delay="200">
+                    <div class="estimator-form">
+                        <!-- Service Type -->
+                        <div class="form-group-radio">
+                            <h4>1. Select Service Type</h4>
+                            <label><input type="radio" name="serviceType" value="3d" checked> 3D Visualization</label>
+                            <label><input type="radio" name="serviceType" value="2d"> 2D Planning</label>
+                            <label><input type="radio" name="serviceType" value="custom"> Custom Project</label>
+                        </div>
+
+                        <!-- Project & Design Type -->
+                        <div class="form-group-radio" id="projectDesignGroup">
+                             <h4>2. Select Project Details</h4>
+                             <div class="radio-columns">
+                                 <div>
+                                    <h5>Project Type</h5>
+                                    <label><input type="radio" name="projectType" value="residential" checked> Residential</label>
+                                    <label><input type="radio" name="projectType" value="commercial"> Commercial</label>
+                                 </div>
+                                 <div>
+                                    <h5>Design Type</h5>
+                                    <label><input type="radio" name="designType" value="exterior" checked> Exterior</label>
+                                    <label><input type="radio" name="designType" value="interior"> Interior</label>
+                                 </div>
+                             </div>
+                        </div>
+
+                        <!-- Inputs for SqFt and Floors -->
+                        <div class="form-group-inline" id="numericInputsGroup">
+                             <h4>3. Enter Dimensions</h4>
+                            <div>
+                                <label for="sqft">Area (sqft)</label>
+                                <input type="number" id="sqft" min="100" max="1000" value="800" step="50">
+                            </div>
+                            <div>
+                                <label for="floors">Total Floors (e.g., G+1 is 2)</label>
+                                <input type="number" id="floors" min="1" max="10" value="2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="estimator-result">
+                        <h3>Estimated Cost</h3>
+                        <div id="estimatedPrice">₹0</div>
+                        <p id="estimateNotes">Please select your options to see an estimate.</p>
+                        <a href="#" id="estimatorCta" class="btn" style="display: none;"><i class="fab fa-whatsapp"></i> Discuss This Quote</a>
+                    </div>
+                </div>
+
+                <div class="pricing-terms" data-aos="fade-up" data-aos-delay="300">
                     <h4>Terms & Conditions</h4>
                     <ul>
                         <li><i class="fas fa-check-circle"></i> 25% Advanced amount to be paid beforehand.</li>
@@ -372,10 +428,9 @@
                         <li><i class="fas fa-times-circle"></i> Advanced payment is non-refundable.</li>
                     </ul>
                 </div>
-
             </div>
         </section>
-        <!-- END: NEW PRICING SECTION -->
+        <!-- END: NEW ESTIMATOR SECTION -->
         
         <section id="contact" class="section-padding">
             <div class="container">

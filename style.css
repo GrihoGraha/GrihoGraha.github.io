@@ -311,6 +311,105 @@ nav.container { display: flex; justify-content: space-between; align-items: cent
     color: var(--accent-color);
 }
 
+/* START: ESTIMATOR SECTION STYLES */
+.estimator-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    background-color: var(--white-color);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    margin-bottom: 50px;
+}
+.estimator-form h4 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.form-group-radio { margin-bottom: 30px; }
+.form-group-radio label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-weight: 400;
+}
+.form-group-radio input[type="radio"] {
+    margin-right: 10px;
+    accent-color: var(--primary-color);
+}
+.radio-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.form-group-inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: end;
+}
+.form-group-inline label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.form-group-inline input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-group-inline input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(22, 48, 43, 0.1);
+}
+.estimator-result {
+    background-color: var(--light-bg-color);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #eee;
+}
+.estimator-result h3 {
+    margin-bottom: 15px;
+}
+#estimatedPrice {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+#estimateNotes {
+    color: var(--grey-color);
+    font-style: italic;
+    min-height: 40px; /* Reserve space */
+    margin-bottom: 25px;
+}
+#estimatorCta {
+    width: 100%;
+}
+/* Disabled state for UI elements */
+.form-group-radio.disabled, .form-group-inline.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+#floors:disabled {
+    background-color: #f0f0f0;
+}
+/* END: ESTIMATOR SECTION STYLES */
+
 /* Contact Section */
 .contact-content { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; align-items: center; }
 .contact-info p { font-size: 1.1rem; }
@@ -370,6 +469,9 @@ footer a:hover { opacity: 1; text-decoration: none; color: var(--white-color); }
     .about-content { flex-direction: column; text-align: center; }
     .profile-pic { width: 250px; height: 250px; margin-bottom: 30px; }
     .contact-content { grid-template-columns: 1fr; }
+    .estimator-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 768px) {
@@ -393,6 +495,9 @@ footer a:hover { opacity: 1; text-decoration: none; color: var(--white-color); }
         display: flex;
         text-align: left;
         margin: 5px 0;
+    }
+    .radio-columns, .form-group-inline {
+        grid-template-columns: 1fr;
     }
 }
 
