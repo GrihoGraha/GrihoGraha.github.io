@@ -8,7 +8,7 @@
     --grey-color: #6c757d;
     --nav-height: 70px;
     --font-family: "Poppins", sans-serif;
-    --logo-font-family: "Inknut Antiqua", serif;
+    --logo-font-family: "Poppins", serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
