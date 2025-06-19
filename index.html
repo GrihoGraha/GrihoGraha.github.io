@@ -51,7 +51,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <div id="loader">
+    <video class="loader-video" autoplay muted loop playsinline>
+        <source src="loader_animation.mp4" type="video/mp4">
+        
+    </video>
+</div>
     <header>
         <nav class="container">
             <a href="#home" class="logo"><img src="images/logo-white.png" alt="Grihograha logo">GrihoGraha</a>
@@ -130,8 +135,8 @@
                         <h3><i class="fas fa-drafting-compass"></i>Technical Services</h3>
                         <ul>
                             <li>AutoCAD 2D Planning & Layouts</li>
-                            <li>Lumion Planning & Layouts</li>
-                            <li>Sketchup 3D Planning & Layouts</li>
+                            <li>Lumion</li>
+                            <li>Sketchup 3D</li>
                             <li>Detailed Cost Estimation & BOQ</li>
                             <li>Project Documentation & Reports</li>
                         </ul>
@@ -159,9 +164,9 @@
                         <div class="stat-label">Years of Experience</div>
                     </div>
                     <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
-                        <i class="fas fa-mug-hot"></i>
-                        <div class="stat-number" data-target="2000" data-suffix="+">0+</div>
-                        <div class="stat-label">Days of Practice</div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="stat-number" data-target="7" data-suffix="+">0+</div>
+                        <div class="stat-label">Cities Covered</div>
                     </div>
                 </div>
             </div>
@@ -485,5 +490,28 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
     <script src="script.js"></script>
+    <script>
+    document.onreadystatechange = function () {
+        if (document.readyState !== "complete") {
+            document.querySelector("body").style.visibility = "hidden";
+            document.querySelector("#loader").style.visibility = "visible";
+        } else {
+            // Deliberately wait for 5 seconds after the page is loaded
+            setTimeout(function() {
+                const loader = document.querySelector("#loader");
+                const body = document.querySelector("body");
+
+                if (loader) {
+                    // Start the fade-out animation by changing opacity and visibility
+                    loader.style.opacity = '0';
+                    loader.style.visibility = 'hidden';
+                }
+                
+                // Make the main content visible
+                body.style.visibility = "visible";
+            }, 4800); // 1000 milliseconds = 1 seconds
+        }
+    };
+    </script>
 </body>
 </html>

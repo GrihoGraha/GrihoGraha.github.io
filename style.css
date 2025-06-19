@@ -56,6 +56,31 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .section-intro { text-align: center; max-width: 700px; margin: 0 auto 50px auto; color: var(--grey-color); }
 
+
+/* loader */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--primary-color); /* Fallback background */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Additions for smooth fade-out */
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+}
+
+#loader .loader-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
 /* Header & Navigation */
 header {
     background: transparent;
