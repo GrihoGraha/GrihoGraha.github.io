@@ -94,8 +94,8 @@ nav.container { display: flex; justify-content: space-between; align-items: cent
     align-items: center;
     gap: 10px;
     font-family: var(--logo-font-family);
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--white-color);
     letter-spacing: 0.8px;
 }
@@ -513,8 +513,8 @@ nav.container { display: flex; justify-content: space-between; align-items: cent
 footer { background: var(--text-color); color: var(--light-bg-color); text-align: center; padding: 50px 0; }
 .footer-logo {
     font-family: var(--logo-font-family);
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--white-color);
     letter-spacing: 1px;
     margin-bottom: 15px;
