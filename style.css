@@ -220,6 +220,49 @@ nav.container { display: flex; justify-content: space-between; align-items: cent
 }
 
 
+/* Styles for Individual Portfolio Slideshows */
+.portfolio-slideshow {
+    position: relative;
+}
+
+.portfolio-slideshow .slide {
+    display: none; /* Hide all slides by default; JS will show the active one */
+    width: 100%;
+}
+
+.portfolio-slideshow .slide-nav {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.3s ease;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: none;
+    z-index: 10;
+}
+
+.portfolio-slideshow .slide-nav:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.portfolio-slideshow .slide-nav.prev {
+    left: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.portfolio-slideshow .slide-nav.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+
+
 
 /* Process Section */
 .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: center; }

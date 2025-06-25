@@ -1,3 +1,5 @@
+// --- START OF FILE script.js ---
+
 document.addEventListener('DOMContentLoaded', function() {
     
     /**
@@ -146,12 +148,66 @@ document.addEventListener('DOMContentLoaded', function() {
                 portfolioItems.forEach(item => {
                     const itemCategories = item.getAttribute('data-category');
                     const shouldShow = (filterValue === 'all' || itemCategories.includes(filterValue));
+                    // Use 'grid' or 'block' depending on your grid layout system
                     item.style.display = shouldShow ? 'block' : 'none';
                 });
-                initLightbox();
+                initLightbox(); // Re-initialize lightbox after filtering
             }
         });
     }
+
+    /**
+     * 8.5. Individual Portfolio Slideshows
+     */
+    function initializeSlideshows() {
+        const slideshows = document.querySelectorAll('.portfolio-slideshow');
+
+        slideshows.forEach(slideshow => {
+            // Store state on the element itself
+            slideshow.dataset.slideIndex = '1';
+            showSlides(1, slideshow); // Initialize to show the first slide
+
+            const prevButton = slideshow.querySelector('.prev');
+            const nextButton = slideshow.querySelector('.next');
+
+            if (prevButton && nextButton) {
+                prevButton.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent GLightbox from opening
+                    plusSlides(-1, slideshow);
+                });
+
+                nextButton.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent GLightbox from opening
+                    plusSlides(1, slideshow);
+                });
+            }
+        });
+    }
+
+    function plusSlides(n, slideshow) {
+        let currentIndex = parseInt(slideshow.dataset.slideIndex || '1', 10);
+        showSlides(currentIndex + n, slideshow);
+    }
+
+    function showSlides(n, slideshow) {
+        const slides = slideshow.querySelectorAll('.slide');
+        if (slides.length === 0) return; // Safety check
+
+        let slideIndex = n;
+        if (n > slides.length) { slideIndex = 1; }
+        if (n < 1) { slideIndex = slides.length; }
+
+        slides.forEach(slide => slide.style.display = 'none');
+        
+        if (slides[slideIndex - 1]) {
+            slides[slideIndex - 1].style.display = 'block';
+        }
+        
+        slideshow.dataset.slideIndex = slideIndex.toString();
+    }
+    
+    initializeSlideshows();
+
 
     /**
      * 9. Go-to-Top Button
@@ -323,4 +379,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateUiState();
         calculateEstimate();
     }
+
+    
 });
