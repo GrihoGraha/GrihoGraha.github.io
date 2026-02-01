@@ -273,6 +273,68 @@ nav.container { display: flex; justify-content: space-between; align-items: cent
 }
 .process-item h3 { font-size: 1.3rem; margin-bottom: 10px; }
 
+/* testimonials */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.testimonial-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.1); /* Subtle accent border */
+    padding: 2rem;
+    border-radius: 12px;
+    transition: transform 0.3s ease, background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-color, #d4af37);
+}
+
+.testimonial-card p {
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    color: var(--primary-color);
+}
+
+.stars {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+}
+
+.client-info {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+}
+
+.client-name {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+}
+
+.client-project {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+}
 /* NEW: Pricing Section */
 .pricing-grid {
     display: grid;
@@ -550,7 +612,35 @@ nav.container { display: flex; justify-content: space-between; align-items: cent
     outline: none; border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(22, 48, 43, 0.1);
 }
-.contact-form .btn { width: 100%; padding: 15px; }
+
+.business-details { margin: 2rem 0; padding-top: 1.5rem; border-top: 1px solid var(--primary-color); }
+.business-details h4 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; opacity: 0.8; }
+        
+.social-media-stack { margin-top: 2rem; }
+.social-media-stack h4 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; opacity: 0.8; }
+.social-row { display: flex; gap: 15px; flex-wrap: wrap; }
+.social-row a { 
+            width: 45px; 
+            height: 45px; 
+            background: rgba(255,255,255,0.05); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-radius: 8px; 
+            font-size: 1.2rem; 
+            transition: all 0.3s ease;
+            color: var(--primary-color);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+.social-row a:hover { 
+            background: var(--primary-color); 
+            transform: translateY(-3px); 
+            color: var(--light-bg-color);
+        }
+@media (max-width: 768px) {
+            .social-row { gap: 12px; }
+            .social-row a { width: 50px; height: 50px; font-size: 1.4rem; } /* Larger touch targets for mobile */
+        }
 
 /* Footer */
 footer { background: var(--text-color); color: var(--light-bg-color); text-align: center; padding: 50px 0; }
