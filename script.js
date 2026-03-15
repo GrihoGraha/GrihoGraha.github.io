@@ -210,18 +210,67 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     /**
-     * 9. Go-to-Top Button
+     * 9. Custom Smooth Scroll
+     * Specialized speed for "View My Work" to allow a glimpse of the site.
      */
+    const headerHeight = header ? header.offsetHeight : 70;
+
+    const customSmoothScroll = (targetSelector, duration) => {
+        const target = document.querySelector(targetSelector);
+        if (!target) return;
+
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+
+        const animation = (currentTime) => {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = ease(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+        };
+
+        function ease(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        }
+
+        requestAnimationFrame(animation);
+    };
+
+    // Handle internal anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            
+            if (targetId !== "#" && targetId.startsWith("#")) {
+                e.preventDefault();
+
+                // If it's the specific "View My Work" button, go slow (3000ms)
+                if (this.id === "viewWorkBtn") {
+                    customSmoothScroll(targetId, 3000); 
+                } else {
+                    // All other links (Nav menu, etc.) go at a standard speed (800ms)
+                    customSmoothScroll(targetId, 800); 
+                }
+                
+                if (navLinksContainer) navLinksContainer.classList.remove('active');
+            }
+        });
+    });
+
+    // Specialized Go-to-Top Button visibility
     const goToTopButton = document.getElementById('goToTopBtn');
     if (goToTopButton) {
         window.addEventListener('scroll', () => {
             goToTopButton.classList.toggle('show', window.scrollY > 300);
         });
-        goToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
     }
+    
 
     /**
      * 10. WHATSAPP INTEGRATION
